@@ -295,6 +295,31 @@ a:hover{text-decoration:underline}
       <button class="btn btn-outline" onclick="openModal('modal-agents')">🤖 查看 Agent</button>
     </div>
   </div>
+
+  <!-- OpenClaw Guide -->
+  <div class="card" style="margin-top:20px">
+    <h2>📖 OpenClaw 完全指南 v1.0</h2>
+    <p class="desc">从零开始掌握 OpenClaw：安装配置 → 基本使用 → 多Agent协作 → Skill开发 → 实战案例</p>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;font-size:13px;color:var(--text2);line-height:2">
+        <div>📌 <strong style="color:var(--text)">第1-3章</strong> 快速入门与安装配置</div>
+        <div>📌 <strong style="color:var(--text)">第4-7章</strong> 多Agent协作与Skill扩展</div>
+        <div>📌 <strong style="color:var(--text)">第8-11章</strong> 高级特性与性能优化</div>
+        <div>📌 <strong style="color:var(--text)">第12-15章</strong> 实战案例与最佳实践</div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text2)">
+        📋 基于 OpenClaw 2026.2.9 · Windows 11 / Node.js v22.18.0 · 复旦大学 未来信息创新学院 25级 信息工程管理
+      </div>
+    </div>
+    <div class="btn-group">
+      <a class="btn btn-primary" href="guide.html" target="_blank">📖 在线阅读完全指南</a>
+      <a class="btn btn-green" href="OpenClaw完全指南_v1.0.pdf" download>📥 下载 PDF 版本</a>
+    </div>
+    <div style="margin-top:12px;padding:14px;background:rgba(102,126,234,.08);border:1px solid rgba(102,126,234,.2);border-radius:10px;font-size:12px;color:var(--text2);line-height:1.8">
+      <strong style="color:var(--accent)">☁️ 百度网盘下载：</strong>部署文件包已上传至百度网盘，注册成功后系统将自动发送下载链接至您的注册邮箱。<br>
+      <span style="color:var(--text2)">📧 请确保注册邮箱可正常接收邮件，通常 1-3 分钟内送达。</span>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== 积分中心 ==================== -->
@@ -320,7 +345,7 @@ a:hover{text-decoration:underline}
   <!-- 排行榜 -->
   <div class="card">
     <h3>🏅 月度积分排行榜 Top 10</h3>
-    <p class="desc">排名第 1 赠送 3 个月免费算力 · Top3 可申请免积分绿色通道</p>
+    <p class="desc">排名第 1 赠送 3 个月免费算力 · 突出贡献可申请免积分绿色通道（需说明理由）</p>
     <ul class="rank-list" id="rank-list"></ul>
   </div>
 
@@ -351,8 +376,8 @@ a:hover{text-decoration:underline}
     </div>
   </div>
 
-  <div class="card">
-    <h3>🌐 生成网页应用</h3>
+  <div class="card admin-only" style="display:none">
+    <h3>🌐 生成网页应用 <span class="tag tag-pro">🔒 管理员</span></h3>
     <p class="desc">基于阿里云 FC + OSS 一键生成静态网页，自动部署到云端</p>
     <div class="input-group">
       <input class="input" id="aliyun-domain" placeholder="输入自定义域名（可选）">
@@ -361,8 +386,8 @@ a:hover{text-decoration:underline}
     <div id="webapp-status" style="margin-top:8px"></div>
   </div>
 
-  <div class="card">
-    <h3>📱 生成微信小程序</h3>
+  <div class="card admin-only" style="display:none">
+    <h3>📱 生成微信小程序 <span class="tag tag-pro">🔒 管理员</span></h3>
     <p class="desc">基于阿里云后端 + 微信小程序前端，一键生成并提交审核</p>
     <div class="input-group">
       <input class="input" id="wx-appid" placeholder="微信小程序 AppID">
@@ -465,8 +490,8 @@ a:hover{text-decoration:underline}
 <div class="modal-overlay" id="modal-green-channel">
   <div class="modal">
     <button class="close" onclick="closeModal('modal-green-channel')">&times;</button>
-    <h3>🟢 免积分绿色通道申请</h3>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">积分排名 Top3 用户可申请免积分直接使用算力，审核通过后立即生效</p>
+    <h3>🟢 突出贡献免积分绿色通道申请</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">对平台有突出贡献的用户可申请免积分直接使用算力，请详细说明贡献内容和申请理由，审核通过后立即生效</p>
     <label class="input-label">申请理由</label>
     <textarea class="input" id="green-reason" rows="4" placeholder="请简要说明您的使用场景和需求..." style="resize:vertical;margin-bottom:16px"></textarea>
     <button class="btn btn-green" style="width:100%" onclick="submitGreenChannel()">提交申请</button>
@@ -716,7 +741,7 @@ function doRegister() {
   localStorage.setItem('oc_user', JSON.stringify(user));
   closeModal('modal-register');
   loginUI(user);
-  alert('注册成功！' + (isFudan ? '复旦学生免费使用全部基础功能' : '基础功能已解锁') + (invite ? '\n邀请码奖励 200 积分已到账！' : ''));
+  alert('注册成功！' + (isFudan ? '复旦学生免费使用全部基础功能' : '基础功能已解锁') + (invite ? '\n邀请码奖励 200 积分已到账！' : '' + '\n\n📧 部署文件百度网盘下载链接将在 1-3 分钟内发送至 ' + email);
 }
 
 // ===== 登录 =====
@@ -746,6 +771,12 @@ function loginUI(u) {
   document.getElementById('my-points').textContent = u.points;
   document.getElementById('my-checkin').textContent = u.checkinDays;
   document.getElementById('my-invites').textContent = u.invites;
+  // Admin: show web/miniapp cards
+  const ADMIN_EMAILS = ['athenayan123@gmail.com', '25263090165@m.fudan.edu.cn'];
+  const isAdmin = ADMIN_EMAILS.includes(u.email) || u.level === 'admin';
+  document.querySelectorAll('.admin-only').forEach(el => {
+    el.style.display = isAdmin ? 'block' : 'none';
+  });
   updateInviteInfo();
   renderRankList();
   renderProfile();
