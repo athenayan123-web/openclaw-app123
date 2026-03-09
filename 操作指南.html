@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw 极简操作指南</title>
+<style>
+:root { --bg:#0a0a1a; --card:rgba(255,255,255,0.05); --border:rgba(255,255,255,0.1); --accent:#667eea; --green:#00e676; --text:#e8e8e8; --text2:rgba(255,255,255,0.5); }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:40px 20px}
+.container{max-width:800px;margin:0 auto}
+h1{font-size:32px;text-align:center;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{text-align:center;color:var(--text2);font-size:14px;margin-bottom:40px}
+.subtitle strong{color:var(--text)}
+
+/* 步骤卡片 */
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:24px;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--accent),var(--green))}
+.step-num{position:absolute;top:20px;right:24px;font-size:64px;font-weight:900;color:rgba(102,126,234,0.08);line-height:1}
+.step-title{font-size:20px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.step-title .icon{font-size:28px}
+.step-body{color:rgba(255,255,255,0.75);font-size:14px;line-height:1.8}
+.step-body strong{color:var(--text)}
+
+/* 命令块 */
+.cmd{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px 18px;margin:12px 0;font-family:'Consolas',monospace;font-size:13px;color:#a8e6cf;position:relative;cursor:pointer}
+.cmd:hover{border-color:var(--accent)}
+.cmd::after{content:'📋 点击复制';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text2);font-family:'Segoe UI',sans-serif}
+.cmd:active::after{content:'✅ 已复制!';color:var(--green)}
+
+/* 链接按钮 */
+.link-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s}
+.link-primary{background:linear-gradient(135deg,var(--accent),#764ba2);color:#fff}
+.link-green{background:rgba(0,230,118,0.15);color:var(--green);border:1px solid rgba(0,230,118,0.3)}
+.link-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.link-btn:hover{transform:translateY(-1px)}
+
+/* 提示框 */
+.tip{background:rgba(102,126,234,0.08);border:1px solid rgba(102,126,234,0.2);border-radius:10px;padding:12px 16px;margin:12px 0;font-size:13px;color:rgba(255,255,255,0.7)}
+.tip.warn{background:rgba(255,171,64,0.08);border-color:rgba(255,171,64,0.2)}
+.tip.ok{background:rgba(0,230,118,0.08);border-color:rgba(0,230,118,0.2)}
+
+/* 表格 */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:rgba(102,126,234,0.15);color:var(--accent);padding:10px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* 流程图 */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:20px 0;flex-wrap:wrap}
+.flow-node{background:rgba(102,126,234,0.1);border:1px solid rgba(102,126,234,0.3);border-radius:12px;padding:12px 20px;text-align:center;font-size:13px;font-weight:600}
+.flow-arrow{color:var(--accent);font-size:20px;margin:0 4px}
+
+/* 页脚 */
+.footer{text-align:center;margin-top:48px;padding:24px;border-top:1px solid var(--border);color:var(--text2);font-size:12px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🦞 OpenClaw 极简操作指南</h1>
+<p class="subtitle">5 步上手 · 复制粘贴即可完成 · <strong>复旦大学 未来信息创新学院 2025 信息工程管理 宣传委员</strong></p>
+
+<!-- ===== Step 1 ===== -->
+<div class="step-card">
+  <div class="step-num">01</div>
+  <div class="step-title"><span class="icon">⚡</span>一键安装</div>
+  <div class="step-body">
+    <p>打开 <strong>PowerShell</strong>（按 Win+X → 选择"终端"），依次粘贴以下 3 行命令：</p>
+    <div class="cmd" onclick="copyCmd(this)">npm config set prefix "E:\智能整理\openclaw\npm-global"</div>
+    <div class="cmd" onclick="copyCmd(this)">npm config set registry https://registry.npmmirror.com</div>
+    <div class="cmd" onclick="copyCmd(this)">npm install -g openclaw@latest</div>
+    <div class="tip ok">✅ 看到版本号 2026.x.x 即安装成功。全程约 2 分钟。</div>
+  </div>
+</div>
+
+<!-- ===== Step 2 ===== -->
+<div class="step-card">
+  <div class="step-num">02</div>
+  <div class="step-title"><span class="icon">🧠</span>选模型 · 拿 API Key</div>
+  <div class="step-body">
+    <p>点击下方链接，注册/登录后创建 API Key 并复制：</p>
+
+    <table>
+      <tr><th>模型</th><th>价格（每百万tokens）</th><th>推荐场景</th><th>操作</th></tr>
+      <tr><td><strong>DeepSeek V3</strong></td><td>输入¥2 / 输出¥8</td><td>日常对话、分析</td>
+        <td><div class="link-row"><a class="link-primary" href="https://platform.deepseek.com/api_keys" target="_blank">🔑 拿Key</a><a class="link-green" href="https://platform.deepseek.com/top_up" target="_blank">💰 充值</a></div></td></tr>
+      <tr><td><strong>DeepSeek R1</strong></td><td>输入¥4 / 输出¥16</td><td>编程、深度推理</td>
+        <td>同上（同一个Key）</td></tr>
+      <tr><td><strong>通义千问 Qwen3-Max</strong></td><td>输入¥2.5 / 输出¥10</td><td>中文理解、长文本</td>
+        <td><div class="link-row"><a class="link-primary" href="https://bailian.console.aliyun.com/#/model-market" target="_blank">🔑 拿Key</a><a class="link-green" href="https://www.aliyun.com/product/bailian" target="_blank">💰 领免费额度</a></div></td></tr>
+      <tr><td><strong>Gemini 2.5 Flash</strong></td><td>输入$0.15 / 输出$0.60</td><td>高性价比、有免费额度</td>
+        <td><div class="link-row"><a class="link-primary" href="https://aistudio.google.com/apikey" target="_blank">🔑 拿Key</a></div></td></tr>
+      <tr><td><strong>GPT-4.1 Mini</strong></td><td>输入$0.40 / 输出$1.60</td><td>通用任务</td>
+        <td><div class="link-row"><a class="link-primary" href="https://platform.openai.com/api-keys" target="_blank">🔑 拿Key</a></div></td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>输入$3.00 / 输出$15.00</td><td>代码、分析</td>
+        <td><div class="link-row"><a class="link-primary" href="https://console.anthropic.com/settings/keys" target="_blank">🔑 拿Key</a></div></td></tr>
+    </table>
+
+    <div class="tip warn">⚠️ 海外模型（Gemini/GPT/Claude）需要 VPN 注册帐号。国内模型（DeepSeek/阿里云）可直接注册帐号。</div>
+  </div>
+</div>
+
+<!-- ===== Step 3 ===== -->
+<div class="step-card">
+  <div class="step-num">03</div>
+  <div class="step-title"><span class="icon">📝</span>填 Key · 启动</div>
+  <div class="step-body">
+    <p>打开配置文件，把 <strong>YOUR_API_KEY</strong> 替换成你复制的 Key：</p>
+    <div class="cmd" onclick="copyCmd(this)">notepad C:\Users\%USERNAME%\.openclaw\openclaw.json</div>
+    <p style="margin-top:12px;">找到这一行，替换即可：</p>
+    <div class="cmd" onclick="copyCmd(this)">"apiKey": "sk-你的API Key粘贴到这里"</div>
+    <p style="margin-top:16px;">保存后，启动网关：</p>
+    <div class="cmd" onclick="copyCmd(this)">openclaw gateway</div>
+    <div class="tip ok">✅ 看到 "listening on ws://127.0.0.1:18789" 即启动成功！</div>
+  </div>
+</div>
+
+<!-- ===== Step 4 ===== -->
+<div class="step-card">
+  <div class="step-num">04</div>
+  <div class="step-title"><span class="icon">🌐</span>打开 · 使用</div>
+  <div class="step-body">
+    <p>浏览器打开，无需密码，直接使用：</p>
+    <div class="link-row">
+      <a class="link-primary" href="http://localhost:18789" target="_blank" style="font-size:16px;padding:12px 24px;">🌐 打开 OpenClaw Web UI</a>
+    </div>
+    <p style="margin-top:12px;">密码：<code style="background:rgba(0,0,0,0.4);padding:4px 12px;border-radius:6px;font-size:15px;color:var(--green)">（空白，直接回车进入）</code></p>
+
+    <div style="margin-top:20px;">
+      <p><strong>4 个 Agent 随时待命：</strong></p>
+      <div class="flow">
+        <div class="flow-node">🦞 主控<br><small>任务调度</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node">🔍 研究员<br><small>信息检索</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node">💻 编码员<br><small>代码生成</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node">📊 分析师<br><small>数据分析</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Step 5 ===== -->
+<div class="step-card">
+  <div class="step-num">05</div>
+  <div class="step-title"><span class="icon">⚡</span>图灵算力中心</div>
+  <div class="step-body">
+    <p>点击下方链接注册帐号，即可使用图灵算力：</p>
+
+    <div class="link-row">
+      <a class="link-primary" href="https://www.turingcm.com/index?contactsId=000007" target="_blank" style="font-size:15px;padding:10px 20px;">📝 注册帐号</a>
+    </div>
+
+    <div class="tip">💡 通过此链接注册的所有帐号将自动归属至主帐号体系，无需额外操作。</div>
+
+    <div class="tip ok">🎁 注册即赠送 <strong>20 图灵币</strong>，可直接用于算力租用体验！</div>
+
+    <div class="tip">💡 <strong>主流显卡选型：</strong>英伟达（NVIDIA）、沐曦（MetaX）等，请根据任务需求自行选择。所有算力均为 <strong>计时计费</strong>，支持 <strong>设置限额</strong>，可 <strong>实时查询费用</strong>，用完即停，费用透明可控。</div>
+
+    <table>
+      <tr><th>GPU 型号</th><th>显存</th><th>规格</th><th>价格（图灵币/时）</th><th>资源</th></tr>
+      <tr><td><strong>NVIDIA H800-PCIE</strong></td><td>80GB</td><td>8卡·80核·768G内存</td><td>92.29</td><td style="color:#ffab40">紧张</td></tr>
+      <tr><td><strong>NVIDIA H800-PCIE</strong></td><td>80GB</td><td>4卡·40核·384G内存</td><td>47.32</td><td style="color:#ffab40">紧张</td></tr>
+      <tr><td><strong>NVIDIA H800-PCIE</strong></td><td>80GB</td><td>2卡·20核·192G内存</td><td>23.66</td><td style="color:#00e676">充足</td></tr>
+      <tr><td><strong>NVIDIA H800-PCIE</strong></td><td>80GB</td><td>1卡·10核·96G内存</td><td>11.83</td><td style="color:#00e676">充足</td></tr>
+      <tr><td><strong>NVIDIA L40S / L20</strong></td><td>48GB</td><td>推理优化·多卡可选</td><td>按需</td><td style="color:#00e676">可用</td></tr>
+      <tr><td><strong>MetaX C550（国产）</strong></td><td>64GB</td><td>8卡·512G总显存</td><td>48.00</td><td style="color:#ffab40">紧张</td></tr>
+      <tr><td><strong>Kunlun P800（国产）</strong></td><td>—</td><td>昆仑芯·国产生态</td><td>按需</td><td style="color:#00e676">可用</td></tr>
+    </table>
+
+    <div class="tip">💡 纯 API 调用（DeepSeek/阿里云等）不需要 GPU 算力。GPU 算力仅在本地部署开源模型（如 DeepSeek-R1-32B）时需要。</div>
+  </div>
+</div>
+
+<!-- 速查卡 -->
+<div class="step-card" style="background:rgba(102,126,234,0.05);border-color:rgba(102,126,234,0.2)">
+  <div class="step-title"><span class="icon">📋</span>速查卡</div>
+  <div class="step-body">
+    <table>
+      <tr><th>操作</th><th>命令 / 地址</th></tr>
+      <tr><td>启动网关</td><td><code>openclaw gateway</code></td></tr>
+      <tr><td>Web UI</td><td><code>http://localhost:18789</code> · 密码: <code>（空白，直接回车进入）</code></td></tr>
+      <tr><td>与主控对话</td><td><code>openclaw agent -m "消息" --agent main</code></td></tr>
+      <tr><td>与研究员对话</td><td><code>openclaw agent -m "消息" --agent researcher</code></td></tr>
+      <tr><td>与编码员对话</td><td><code>openclaw agent -m "消息" --agent coder</code></td></tr>
+      <tr><td>查看 Agent</td><td><code>openclaw agents list</code></td></tr>
+      <tr><td>查看 Skill</td><td><code>openclaw skills list</code></td></tr>
+      <tr><td>检查健康</td><td><code>curl http://localhost:18789/health</code></td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <p>复旦大学 未来信息创新学院 2025 信息工程管理 宣传委员</p>
+  <p style="margin-top:4px;">OpenClaw 2026.3.7 · 所有 Skill 均来自官方 Bundled 源 · 本地部署 · 数据不出境</p>
+  <p style="margin-top:4px;">图灵算力：<a href="https://www.turingcm.com/index?contactsId=000007" target="_blank" style="color:var(--accent)">www.turingcm.com</a>（注册帐号自动归属主帐号）</p>
+</div>
+
+</div>
+
+<script>
+function copyCmd(el) {
+  const text = el.textContent.replace('📋 点击复制','').replace('✅ 已复制!','').trim();
+  navigator.clipboard.writeText(text).catch(()=>{});
+}
+</script>
+</body>
+</html>
